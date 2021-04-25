@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        html{
+            font-size: 62.5%;
+        }
+        body{
+            background-color: rgba(128, 255, 10, 0.6);
+        }
+        .word {
+            background-color: rgba(81, 217, 18, 0.8);
+            padding: 4rem;
+            color: white;
+            font-size: 2.2rem;
+        }
+        .flex {
+            display: flex;
+            flex-direction: column;
+        }
+        .justify-center {
+            display: flex;
+            justify-content: center;
+        }
+        .align-center {
+            display: flex;
+            align-items: center;
+        }
+        .box{
+            width: 40rem;
+            height: 40rem;
+            background-color: green;
+
+        }
+        .container{
+            position: relative;
+            width: 100%;
+            height: 50rem;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .text{
+            font-size: 2.2rem;
+            padding: 2rem;
+            color: white;
+            letter-spacing: 0.1rem;
+        }
+        .input{
+            padding: 1rem;
+            outline: none;
+            border: none;
+        }
+        button{
+            padding:1rem;
+            border: none;
+            outline: none;
+            background: rgb(38, 255, 0);
+            color: rgb(200, 36, 30);
+            font-size: 1.7rem;
+            cursor: pointer;
+        }
+        button:hover{
+            transform: scale(1.1);
+            letter-spacing: .2rem;
+        }
+        .show{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="word flex justify-center align-center">
+       (WebSupa Games) Find Correct Word
+    </div>
+    <div class="container flex justify-center align-center">
+        <div class="box flex justify-center align-center">
+            <p class="text text-center" id="text"></p>
+            <input type="text" id="input" class="show input text-center justify-self-center" placeholder="enter">
+            <br>
+            <button> Start the game</button>
+        </div>
+    </div>
+
+    <script>
+         const button = document.querySelector("button");
+         const text = document.getElementById("text");
+         const input = document.getElementById("input");
+        let play = false;
+        let newWords = "";
+        let randWords ="";
+
+        let words = ["coffee","bread","rice","tea","wheat"];
+
+        const CreateNewWords = () => {
+            let random = Math.floor(Math.random() * words.length);
+            let tempWords = words[random];
+
+            return tempWords;
+        }
+
+        const scrambble = (arr) => {
+             for (let i = arr.length-1; i > 0; i--) {
+                let  temp = arr[i];
+
+                let j  = Math.floor(Math.random() *(i+1));
+
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            return arr;
+        }
+
+        button.addEventListener("click", () => {
+            if (!play) {
+                play = true;
+                input.classList.toggle("show");
+                button.innerHTML = "Guess word";
+                newWords = CreateNewWords();
+                randWords = scrambble(newWords.split("")).join("");
+                text.innerHTML = `Guess the correct word ${randWords}`;
+
+            }else{
+                let showWords = input.value;
+                if(showWords === newWords){
+                    play = false;
+                    text.innerHTML = `Great! The word is ${newWords}`;
+                    button.innerHTML = "Start again!";
+                    input.value ="";
+                    input.classList.toggle("show");
+                }else{
+                    text.innerHTML = `Incorrect , Please try again : ${randWords}`;
+                }
+            }
+        })
+    </script> 
+</body>
+</html>
