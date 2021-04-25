@@ -127,18 +127,18 @@
                 button.innerHTML = "Guess word";
                 newWords = CreateNewWords();
                 randWords = scrambble(newWords.split("")).join("");
-                text.innerHTML = `Guess the correct word ${randWords}`;
+                text.innerHTML = `Guess the correct word: "${randWords}"`;
 
             }else{
                 let showWords = input.value;
                 if(showWords === newWords){
                     play = false;
-                    text.innerHTML = `Great! The word is ${newWords}`;
+                    text.innerHTML = `Great! The word is "${newWords}"`;
                     button.innerHTML = "Start again!";
                     input.value ="";
                     input.classList.toggle("show");
                 }else{
-                    text.innerHTML = `Incorrect , Please try again : ${randWords}`;
+                    text.innerHTML = `Incorrect , Please try again : "${randWords}"`;
                 }
             }
         })
